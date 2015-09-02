@@ -48,6 +48,19 @@ namespace BVEditor
             bw2.Close();
         }
 
+        void writeWeather(string weather, int w_value) //Thanks to Hallowpape on Youtube!
+        {
+            BinaryWriter bw2 = new BinaryWriter(File.OpenWrite(sfd.FileName));
+
+            if (weatherList.Text == weather)
+            {
+                bw2.Seek(0x1BA, SeekOrigin.Begin);
+                bw2.Write((ushort)w_value);
+            }
+
+            bw2.Close();
+        }
+
         private void saveBV_Click(object sender, EventArgs e)
         {
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -57,6 +70,8 @@ namespace BVEditor
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     System.IO.File.WriteAllBytes(sfd.FileName, battleVideo);
+
+                    /*Lots of thanks to EpicLolz53 on youtube!*/
 
                     writeBackground("00 00 00 00 - Nothing", 0x00000000);
                     writeBackground("01 00 01 01 - Trees and Mountain (Broken Sky)", 0x01010001);
@@ -118,7 +133,7 @@ namespace BVEditor
                     writeBackground("39 00 39 39 - Sky Pillar", 0x39390039);
                     writeBackground("3A 00 00 3A - Groudon Cave of Origin", 0x3A00003A);
                     writeBackground("3B 00 00 3B - Kyogre Cave of Origin", 0x3B00003B);
-                    writeBackground("3C 00 3C 3C - Atop Sky Pillar (Broken Sky)", 0x3C3C003C);
+                    writeBackground("3C 00 3C 3C - Atop Sky Pillar (Broken Sky)", 0x3C00003C);
                     writeBackground("3D 00 00 3D - Mirage Battle", 0x3D00003D);
                     writeBackground("3E 00 00 3E - Contest Hall 1", 0x3E00003E);
                     writeBackground("3F 00 00 3F - Contest Hall 2", 0x3F00003F);
@@ -147,8 +162,8 @@ namespace BVEditor
                     writeBackground("56 00 56 56 - Atop Sky Pillar (Broken Sky)", 0x56560056);
                     writeBackground("57 00 00 57 - Outer Space", 0x57000057);
                     writeBackground("58 00 58 58 - Volcanic", 0x58580058);
-                    writeBackground("59 00 00 59 - Wally Flowers", 0x59000059);
-                    writeBackground("5A 00 5A 5A - Field of Final Rival Battle", 0x5A5A005A);
+                    writeBackground("59 00 00 59 - Final Wally Battle", 0x59000059);
+                    writeBackground("5A 00 5A 5A - Final Rival Battle", 0x5A5A005A);
                     writeBackground("5B 00 00 5B - Cave", 0x5B00005B);
 
                     writeBgm("00 - Title Screen Theme", 0);
@@ -360,6 +375,15 @@ namespace BVEditor
                     writeBgm("CE - Champion Battle", 206);
                     writeBgm("CF - VS Rayquaza", 207);
                     writeBgm("D0 - Break Music Entirely", 208);
+
+                    writeWeather("00 - Nothing", 1);
+                    writeWeather("01 - Sunny", 1);
+                    writeWeather("02 - Rain", 2);
+                    writeWeather("03 - Hail", 3);
+                    writeWeather("04 - Sandstorm", 4);
+                    writeWeather("05 - Heavy Rain", 5);
+                    writeWeather("06 - Drought", 6);
+                    writeWeather("07 - Delta Stream", 7);
                         
                     MessageBox.Show("Done.");
                 }
