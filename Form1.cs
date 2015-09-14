@@ -376,7 +376,7 @@ namespace BVEditor
                     writeBgm("CF - VS Rayquaza", 207);
                     writeBgm("D0 - Break Music Entirely", 208);
 
-                    writeWeather("00 - Nothing", 1);
+                    writeWeather("00 - Nothing", 0);
                     writeWeather("01 - Sunny", 1);
                     writeWeather("02 - Rain", 2);
                     writeWeather("03 - Hail", 3);
